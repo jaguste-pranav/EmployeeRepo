@@ -60,7 +60,7 @@ console.log("Refractor UC2 to Write Functions");
     for(let day=0;day<=NUM_OF_WORKING_DAYS;day++)
     {
         let empCheck= Math.floor((Math.random()*10)%3);
-        totalWorkinghrs+=getWorkingHrs(empCheck); 
+        totalWorkinghrs = totalWorkinghrs + getWorkingHrs(empCheck); 
     }
     employeeWage= totalWorkinghrs*WAGE_PER_HOUR;
     console.log("EmployeeWage for month is: "+ employeeWage);
@@ -73,8 +73,51 @@ console.log("Refractor UC2 to Write Functions");
     while(totalEmpHrs<MAX_WORKING_HOURS && totalWorkingDays<NUM_OF_WORKING_DAYS)//Condition
     {
         totalWorkingDays++;
-        empCheck= Math.floor((Math.random()*10)%3);
-        totalEmpHrs+=getWorkingHrs(empCheck); ;
+        empCheck = Math.floor((Math.random()*10)%3);
+        totalEmpHrs = totalEmpHrs + getWorkingHrs(empCheck); ;
     }
-    console.log("Total working days: "+totalWorkingDays +" Total Wage: "+ totalEmpHrs*WAGE_PER_HOUR);
+
+    if(totalEmpHrs>MAX_WORKING_HOURS)
+    {
+        totalEmpHrs = MAX_WORKING_HOURS;
+    }
+
+    console.log("Total working days: "+totalWorkingDays +" Total Wage: "+ totalEmpHrs*WAGE_PER_HOUR + " Total Working Hour: "+totalEmpHrs);
+
+
+    //UC 6
+ 
+const MAX_HRS_IN_MONTH=160;
+let empDailyWageArr=new Array();
+ 
+function calcDailyWage(empHrs)
+{
+  return empHrs*WAGE_PER_HOUR;
+}
+ 
+function getWorkingHours(empCheck)
+{
+    switch(empCheck)
+    {
+       case IS_PART_TIME:
+            return 4;
+       case IS_FULL_TIME:
+            return 8;
+       default:
+            return 0;
+   }
+}
+while(totalEmpHrs <=MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS)
+{
+  totalWorkingDays++;
+  
+  let empCheck=Math.floor(Math.random()*10)%3;
+  let empHrs=getWorkingHours(empCheck);
+  totalEmpHrs+=empHrs;
+  empDailyWageArr.push(calcDailyWage(empHrs));
+}
+ 
+let empWage=calcDailyWage(totalEmpHrs);
+console.log("UC6 - Total Days: "+totalWorkingDays+" Total Hrs: "+totalEmpHrs+" Emp Wage: "+empWage);
+
 
